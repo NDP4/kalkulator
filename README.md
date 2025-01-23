@@ -68,7 +68,7 @@ git clone https://github.com/NDP4/kalkulator.git
 2. Masuk ke direktori proyek:
 
 ```bash
-cd kalkulator-lengkap
+cd kalkulator
 ```
 
 3. Jalankan dengan Docker Compose:
