@@ -114,8 +114,11 @@ docker-compose up -d
 ## 📱 Screenshot
 
 <div align="center">
+  
 | Mode Terang |	Mode Gelap |
-|![Screenshot Aplikasi](image.png) |	![Screenshot Aplikasi](images.png) |
+| ------------- | -------------- |
+|![Screenshot Lightmode](image.png) |	![Screenshot Darkmode](images.png) |
+
 </div>
 
 ## Dukungan Browser
