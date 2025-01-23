@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <!-- Meta tag untuk SEO dan desain responsif -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kalkulator web lengkap dengan fitur standar, sains, geometri, dan keuangan">
+    <meta name="author" content="Nur Dwi Priyambodo">
+    
+    <title>Kalkulator Lengkap</title>
+    
+    <!-- Styles and favicon -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" type="image/png" href="favicon.png">
+</head>
+
+<body data-theme="light">
+    <!-- Tombol pengatur tema -->
+    <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Pengatur Tema">
+        🌙
+    </button>
+    <!-- Main calculator container -->
+    <div class="container">
+        <button id="showHints" class="hint-button" title="Keyboard Shortcuts">
+            <span>?</span>
+        </button>
+        <div class="calculator">
+            <div class="display">
+                <input type="text" id="result" readonly>
+            </div>
+            <div class="type-selector">
+                <button onclick="changeCalculator('standard')" class="active">Standar</button>
+                <button onclick="changeCalculator('scientific')">Sains</button>
+                <button onclick="changeCalculator('geometry')">Geometri</button>
+                <button onclick="changeCalculator('financial')">Keuangan</button>
+            </div>
+            <div id="standard-calc" class="calc-type active">
+                <div class="buttons">
+                    <button onclick="clearDisplay()">C</button>
+                    <button onclick="deleteChar()">⌫</button>
+                    <button onclick="appendOperator('%')">%</button>
+                    <button onclick="appendOperator('/')">/</button>
+                    <button onclick="appendNumber('7')">7</button>
+                    <button onclick="appendNumber('8')">8</button>
+                    <button onclick="appendNumber('9')">9</button>
+                    <button onclick="appendOperator('*')">×</button>
+                    <button onclick="appendNumber('4')">4</button>
+                    <button onclick="appendNumber('5')">5</button>
+                    <button onclick="appendNumber('6')">6</button>
+                    <button onclick="appendOperator('-')">-</button>
+                    <button onclick="appendNumber('1')">1</button>
+                    <button onclick="appendNumber('2')">2</button>
+                    <button onclick="appendNumber('3')">3</button>
+                    <button onclick="appendOperator('+')">+</button>
+                    <button onclick="appendNumber('0')">0</button>
+                    <button onclick="appendNumber('.')">.</button>
+                    <button onclick="calculate()" class="equal">=</button>
+                </div>
+            </div>
+            <div id="scientific-calc" class="calc-type">
+                <div class="buttons">
+                    <button onclick="calculateTrig('sin')">sin</button>
+                    <button onclick="calculateTrig('cos')">cos</button>
+                    <button onclick="calculateTrig('tan')">tan</button>
+                    <button onclick="calculatePower('square')">x²</button>
+                    <button onclick="calculatePower('cube')">x³</button>
+                    <button onclick="calculateRoot('sqrt')">√</button>
+                    <button onclick="calculateRoot('cbrt')">∛</button>
+                    <button onclick="calculateLog('log')">log</button>
+                    <button onclick="calculateLog('ln')">ln</button>
+                    <button onclick="appendOperator('(')">(</button>
+                    <button onclick="appendOperator(')')">)</button>
+                    <button onclick="calculateFactorial()">Faktorial</button>
+                </div>
+            </div>
+            <div id="geometry-calc" class="calc-type">
+                <div class="buttons">
+                    <button onclick="calculateShape('circle')">Lingkaran</button>
+                    <button onclick="calculateShape('square')">Persegi</button>
+                    <button onclick="calculateShape('triangle')">Segitiga</button>
+                    <button onclick="calculate3D('sphere')">Bola</button>
+                    <button onclick="calculate3D('cube')">Kubus</button>
+                    <button onclick="calculate3D('cylinder')">Tabung</button>
+                </div>
+            </div>
+            <div id="financial-calc" class="calc-type">
+                <div class="buttons">
+                    <button onclick="calculateFinancial('compound')">Bunga Majemuk</button>
+                    <button onclick="calculateFinancial('simple')">Bunga Tunggal</button>
+                    <button onclick="calculateFinancial('mortgage')">KPR</button>
+                    <button onclick="calculateFinancial('investment')">Investasi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bantuan pintasan keyboard -->
+    <div class="watermark">
+        © 2025 Nur Dwi Priyambodo. All rights reserved.
+    </div>
+    <div class="keyboard-shortcuts" id="keyboardShortcuts">
+        <button class="close-hints">&times;</button>
+        <h4>Pintasan Keyboard:</h4>
+        <ul>
+            <li>Angka 0-9: Input angka</li>
+            <li>+, -, *, /: Operator</li>
+            <li>Enter atau =: Hitung hasil</li>
+            <li>Esc: Hapus semua</li>
+            <li>Backspace: Hapus karakter terakhir</li>
+            <li>( ): Tanda kurung</li>
+            <li>Scientific Mode:</li>
+            <li>- S: Sinus</li>
+            <li>- C: Cosinus</li>
+            <li>- T: Tangen</li>
+            <li>- L: Logaritma</li>
+            <li>- N: Logaritma natural</li>
+            <li>- Q: Kuadrat (x²)</li>
+            <li>- U: Kubik (x³)</li>
+            <li>- R: Akar kuadrat (√)</li>
+        </ul>
+    </div>
+    <!-- Modal untuk perhitungan lanjutan -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3 id="modal-title" class="modal-title"></h3>
+            <div id="modal-inputs"></div>
+            <div class="modal-buttons">
+                <button onclick="closeModal()">Batal</button>
+                <button onclick="submitModal()" class="equal">Hitung</button>
+            </div>
+        </div>
+    </div>
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>

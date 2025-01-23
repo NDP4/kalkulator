@@ -1,0 +1,549 @@
+/**
+ * Gaya Kalkulator Lengkap
+ * ----------------------
+ * Mengimplementasikan sistem desain neumorphic dengan:
+ * - Dukungan tema terang & gelap
+ * - Tata letak responsif
+ * - Elemen UI yang mudah diakses
+ */
+
+/* Variabel Tema */
+:root {
+  /* Warna tema terang */
+  --bg-color-light: #e6e7ee;
+  --shadow-light-light: #ffffff;
+  --shadow-dark-light: #a3a3a3;
+  --text-color-light: #666;
+  --text-primary-light: #4caf50;
+
+  /* Dark mode colors */
+  --bg-color-dark: #2d2d2d;
+  --shadow-light-dark: #353535;
+  --shadow-dark-dark: #252525;
+  --text-color-dark: #fff;
+  --text-primary-dark: #6ed771;
+
+  /* Default to light mode */
+  --bg-color: var(--bg-color-light);
+  --shadow-light: var(--shadow-light-light);
+  --shadow-dark: var(--shadow-dark-light);
+  --text-color: var(--text-color-light);
+  --text-primary: var(--text-primary-light);
+
+  /* Transition properties for smooth theme switching */
+  --transition-time: 0.3s;
+}
+
+/* Gaya Dasar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  transition: all var(--transition-time) ease;
+}
+
+/* Komponen Tata Letak */
+body {
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: var(--text-color);
+  transition: background-color var(--transition-time) ease,
+    color var(--transition-time) ease;
+}
+
+.container {
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Komponen Kalkulator */
+.calculator {
+  background: var(--bg-color);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 8px 8px 15px var(--shadow-dark),
+    -8px -8px 15px var(--shadow-light);
+  width: 100%;
+  transition: background-color var(--transition-time) ease,
+    color var(--transition-time) ease, box-shadow var(--transition-time) ease;
+}
+
+/* Tampilan Input */
+.display {
+  margin-bottom: 20px;
+  border: 2px solid #ffffff; /* Warna border putih untuk light mode */
+  border-radius: 10px;
+  overflow: hidden;
+  transition: background-color var(--transition-time) ease,
+    color var(--transition-time) ease, box-shadow var(--transition-time) ease;
+}
+
+#result {
+  width: 100%;
+  padding: 15px;
+  font-size: 24px;
+  text-align: right;
+  background: var(--bg-color);
+  border: none;
+  border-radius: 10px;
+  box-shadow: inset 5px 5px 10px var(--shadow-dark),
+    inset -5px -5px 10px var(--shadow-light);
+  color: var(--text-color);
+}
+
+.type-selector {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Gaya Tombol */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+button {
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  background: var(--bg-color);
+  box-shadow: 5px 5px 10px var(--shadow-dark),
+    -5px -5px 10px var(--shadow-light);
+  cursor: pointer;
+  transition: 0.2s;
+  color: var(--text-color);
+  transition: background-color var(--transition-time) ease,
+    color var(--transition-time) ease, box-shadow var(--transition-time) ease;
+}
+
+button:active {
+  box-shadow: inset 5px 5px 10px var(--shadow-dark),
+    inset -5px -5px 10px var(--shadow-light);
+}
+
+.equal {
+  grid-column: span 2;
+  background: var(--text-primary);
+  color: var(--bg-color);
+}
+
+.calc-type {
+  display: none;
+}
+
+.calc-type.active {
+  display: block;
+}
+
+button.active {
+  box-shadow: inset 5px 5px 10px var(--shadow-dark),
+    inset -5px -5px 10px var (--shadow-light);
+  color: #4caf50;
+}
+
+/* Komponen Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(230, 231, 238, 0.9);
+  z-index: 1000;
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg-color);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 8px 8px 15px var(--shadow-dark),
+    -8px -8px 15px var(--shadow-light);
+  width: 300px;
+  transition: background-color var(--transition-time) ease,
+    color var(--transition-time) ease, box-shadow var(--transition-time) ease;
+}
+
+.modal-input {
+  width: 100%;
+  margin: 10px 0;
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  background: var(--bg-color);
+  box-shadow: inset 5px 5px 10px var(--shadow-dark),
+    inset -5px -5px 10px var(--shadow-light);
+}
+
+.modal-label {
+  display: block;
+  margin-top: 15px;
+  font-size: 16px;
+  color: var(--text-color);
+}
+
+.modal-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.modal-title {
+  text-align: center;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.modal-input[type="number"],
+.modal-input[type="text"],
+select.modal-input {
+  width: 100%;
+  margin: 10px 0;
+  padding: 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  background: var(--bg-color);
+  box-shadow: inset 5px 5px 10px var(--shadow-dark),
+    inset -5px -5px 10px var(--shadow-light);
+  color: #666;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+select.modal-input {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1em center;
+  background-size: 1em;
+  padding-right: 40px;
+}
+
+.keyboard-shortcuts {
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--bg-color);
+  border-radius: 20px;
+  box-shadow: 8px 8px 15px var(--shadow-dark),
+    -8px -8px 15px var(--shadow-light);
+  transition: background-color var(--transition-time) ease,
+    color var(--transition-time) ease, box-shadow var(--transition-time) ease;
+}
+
+.keyboard-shortcuts h4 {
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.keyboard-shortcuts ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.keyboard-shortcuts li {
+  margin: 5px 0;
+  color: var(--text-color);
+  font-size: 14px;
+}
+
+.keyboard-shortcuts li:not(:first-child) {
+  margin-left: 15px;
+}
+
+.hint-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-color);
+  box-shadow: 5px 5px 10px var(--shadow-dark),
+    -5px -5px 10px var(--shadow-light);
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #4caf50;
+  z-index: 1000;
+}
+
+.hint-button:hover {
+  transform: scale(1.1);
+}
+
+.keyboard-shortcuts {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2000;
+  max-width: 300px;
+  width: 90%;
+}
+
+.keyboard-shortcuts.active {
+  display: block;
+}
+
+.close-hints {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--bg-color);
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.keyboard-shortcuts-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(230, 231, 238, 0.9);
+  z-index: 1500;
+}
+
+.keyboard-shortcuts-overlay.active {
+  display: block;
+}
+
+/* Dark mode toggle button */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-color);
+  box-shadow: 5px 5px 10px var(--shadow-dark),
+    -5px -5px 10px var(--shadow-light);
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* Dark mode styles */
+body[data-theme="dark"] {
+  --bg-color: var(--bg-color-dark);
+  --shadow-light: var(--shadow-light-dark);
+  --shadow-dark: var(--shadow-dark-dark);
+  --text-color: var(--text-color-dark);
+  --text-primary: var(--text-primary-dark);
+  background-color: var(--bg-color-dark);
+}
+
+body[data-theme="dark"] .display {
+  border-color: #4caf50; /* Warna border hijau untuk dark mode */
+}
+
+.watermark {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: var(--text-color);
+  opacity: 0.5;
+  text-align: center;
+  width: 100%;
+}
+
+body[data-theme="dark"] .watermark {
+  opacity: 0.3;
+}
+
+/* Desain Responsif */
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  .calculator {
+    padding: 15px;
+  }
+
+  .buttons {
+    gap: 8px;
+  }
+
+  button {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  #result {
+    font-size: 20px;
+    padding: 12px;
+  }
+
+  .type-selector {
+    gap: 5px;
+    margin-bottom: 15px;
+  }
+
+  .type-selector button {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .modal-content {
+    width: 90%;
+    max-width: 300px;
+    padding: 15px;
+  }
+
+  .keyboard-shortcuts {
+    width: 85%;
+    font-size: 12px;
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .buttons {
+    gap: 5px;
+  }
+
+  button {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .type-selector button {
+    font-size: 12px;
+    padding: 6px;
+  }
+}
+
+/* Landscape Mode */
+@media screen and (max-height: 480px) and (orientation: landscape) {
+  body {
+    align-items: flex-start;
+  }
+
+  .container {
+    padding: 10px;
+    display: flex;
+    gap: 20px;
+  }
+
+  .calculator {
+    flex: 1;
+    max-width: 600px;
+  }
+
+  .buttons {
+    gap: 5px;
+  }
+
+  button {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .hint-button {
+    bottom: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+
+  .keyboard-shortcuts {
+    position: fixed;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+
+/* Tablet & iPad */
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 600px;
+  }
+
+  .calculator {
+    padding: 25px;
+  }
+
+  button {
+    padding: 18px;
+    font-size: 20px;
+  }
+
+  #result {
+    font-size: 28px;
+  }
+
+  .modal-content {
+    max-width: 400px;
+  }
+}
+
+/* Remove or comment out this media query */
+/*
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #2d2d2d;
+    --shadow-light: #353535;
+    --shadow-dark: #252525;
+  }
+
+  body {
+    color: #fff;
+  }
+
+  button {
+    color: #fff;
+  }
+
+  #result {
+    color: #fff;
+  }
+
+  .modal-label,
+  .keyboard-shortcuts li {
+    color: #ddd;
+  }
+}
+*/

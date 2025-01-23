@@ -1,0 +1,8 @@
+services:
+  kalkulator:
+    build: .
+    ports:
+      - "6009:80"    # Port untuk akses aplikasi
+    volumes:
+      - .:/usr/share/nginx/html    # Pemetaan direktori lokal ke container
+    restart: unless-stopped        # Pengaturan restart otomatis
