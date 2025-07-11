@@ -2,13 +2,13 @@
 
 # 🧮 Kalkulator Lengkap
 
-![Logo Kalkulator](mockup.png)
+![Logo Kalkulator](favicon.svg)
 
 Aplikasi kalkulator web modern dengan fitur lengkap dan desain neumorphic yang elegan.
 
 [Lihat Demo](https://calculator.ndp.my.id/)
 
-![Screenshot Aplikasi](image.png)
+![Screenshot Aplikasi](mockup.png)
 
 </div>
 
@@ -68,7 +68,7 @@ git clone https://github.com/NDP4/kalkulator.git
 2. Masuk ke direktori proyek:
 
 ```bash
-cd kalkulator-lengkap
+cd kalkulator
 ```
 
 3. Jalankan dengan Docker Compose:
@@ -114,8 +114,11 @@ docker-compose up -d
 ## 📱 Screenshot
 
 <div align="center">
+  
 | Mode Terang |	Mode Gelap |
-|![Screenshot Aplikasi](image.png) |	![Screenshot Aplikasi](images.png) |
+| ------------- | -------------- |
+|![Screenshot Lightmode](image.png) |	![Screenshot Darkmode](images.png) |
+
 </div>
 
 ## Dukungan Browser
