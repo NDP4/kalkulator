@@ -2,11 +2,11 @@
 
 # 🧮 Kalkulator Lengkap
 
-![Logo Kalkulator](favicon.svg)
+![Logo Kalkulator](mockup.png)
 
 Aplikasi kalkulator web modern dengan fitur lengkap dan desain neumorphic yang elegan.
 
-[Lihat Demo](http://localhost:6009) | [Dokumentasi](#dokumentasi) | [Unduh](#unduh)
+[Lihat Demo](https://calculator.ndp.my.id/)
 
 ![Screenshot Aplikasi](image.png)
 
